@@ -1,0 +1,22 @@
+.Login_container {
+  margin: 2%;
+  padding: 1% 4%;
+  background-color: white;
+  border-radius: 30px;
+  /* box-shadow: rgba(1, 1, 255, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+}
+.login_form {
+  margin-top: 10%;
+}
+
+.input {
+  border: 0;
+  border-bottom: solid gray 2px;
+}
+.form {
+  display: flex;
+  column-gap: 14%;
+  width: 40vw;
+  margin: auto;
+}

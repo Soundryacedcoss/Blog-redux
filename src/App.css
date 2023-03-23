@@ -1,38 +1,65 @@
 .App {
+  /* width: 1144px;
+  margin: auto; */
+  /* box-shadow: rgba(240, 0, 0, 0.24) 0px 3px 8px;
+  background-color: rgb(204, 201, 201); */
+}
+@media only screen and (max-width: 1137px) {
+  .App{
+    width: auto;
+  }
+  .blog__card{
+    width: 100%;
+    margin: auto;
+   padding: auto;
+  }
+}
+.logo {
+  width: 7vw;
+}
+.blog__card {
   text-align: center;
+  padding: 1% 5%;
+  background-color: white;
+  width: 1000px;
+  margin: auto;
+  box-shadow: rgb(87, 90, 168) 0px 13px 27px -5px,
+    rgba(255, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.fa-heart {
+  font-size: 30px;
+  cursor: pointer;
+}
+.fa-comment-o {
+  font-size: 30px;
+  cursor: pointer;
+}
+.fa-trash-o {
+  font-size: 30px;
+  cursor: pointer;
+}
+.fa-edit {
+  font-size: 30px;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.input:focus {
+  outline: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.red {
+  color: red;
 }
 
-.App-link {
-  color: #61dafb;
+li {
+  list-style: none;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.comment {
+  width: 200%;
+  text-align: center;
+  margin: 4% 4% 0% 4%;
+  overflow: auto;
+  height: 20vh;
+  /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
 }
