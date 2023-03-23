@@ -22,7 +22,7 @@ code {
 /* scrollbar styling */
 ::-webkit-scrollbar{
   height: 4px;
-  width: 4px;
+  width: 7px;
   background: gray;
 
 }

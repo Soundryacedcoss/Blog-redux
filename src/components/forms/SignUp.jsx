@@ -1,15 +1,11 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import img1 from "../../images/bannerAccount.png";
 import { addAccount } from "../../reducer/Slice";
-// import { addData } from "../Slice/DataSlice";
 export const SignUp = () => {
   // using navigate to navigate other page
   const navigate = useNavigate();
-  // useSelecer for using redux state data
-  const data = useSelector((state) => state.fetchPost);
   // using usedispatch hook for dispaching action
   const dispatch = useDispatch();
   // ref for input box
@@ -21,6 +17,9 @@ export const SignUp = () => {
   var arr = [];
   // Sign up button functinality
   const SignUpHandler = () => {
+    //  validating email .
+    let emailvalidation =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     // validation
     if (NameRef.current.value === "") {
       setMsg("Please write name");
@@ -28,6 +27,12 @@ export const SignUp = () => {
     } else if (EmailRef.current.value === "") {
       setMsg("Please write email");
       EmailRef.current.focus();
+    } else if (emailvalidation.test(EmailRef.current.value) === false) {
+      setMsg("Please write correct email");
+      EmailRef.current.focus();
+    } else if (UserNameRef.current.value === "") {
+      setMsg("Please write userName");
+      UserNameRef.current.focus();
     } else if (PasswordRef.current.value === "") {
       setMsg("Please write Password");
       PasswordRef.current.focus();
@@ -40,17 +45,19 @@ export const SignUp = () => {
         id: Math.random(),
       };
       arr.push(obj);
-      // dispaching add data action
+      // dispatching action for userAccount
       dispatch(addAccount(arr));
       setMsg("Account created succesfully");
       // navigating to login page
       navigate("/Login");
     }
   };
+  // close handler of massage
   const closeHandler = () => {
     setMsg("");
   };
   return (
+    // Form
     <div className="Login_container text-center">
       <div className="form">
         <div>
@@ -64,7 +71,7 @@ export const SignUp = () => {
           </div>
           <div>
             <input
-              type="text"
+              type="email"
               className="input p-2 mt-3"
               placeholder="Enter your Email"
               ref={EmailRef}
@@ -80,7 +87,7 @@ export const SignUp = () => {
           </div>
           <div>
             <input
-              type="text"
+              type="password"
               className="input p-2 mt-3"
               placeholder="Enter your password"
               ref={PasswordRef}

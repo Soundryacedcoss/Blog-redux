@@ -1,34 +1,52 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { commentHandler, deletePost, fetchPost, like } from "../reducer/Slice";
 
 export const Blog = () => {
+  // redux state
   const data = useSelector((state) => state.fetchPost);
-  console.log(data);
+  // useDispatch hook for dispatching action from redux
   const dispatch = useDispatch();
+  // states
   const [blog1, setBlog1] = useState([]);
   const [msg, setMsg] = useState("");
   const [editClick, setEditClick] = useState(false);
+  // refs for input box
   const tittle = useRef();
   const content = useRef();
   const CommentRef = useRef();
+  // useNavigate hook for redirecting pages
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchPost());
+    // taking data from localStorage
     let post = JSON.parse(localStorage.getItem("AllBlog"));
     setBlog1(post);
   }, []);
-  console.log("redux data", data.post);
   let user = JSON.parse(localStorage.getItem("userAccount"));
+  // delete handler
   const DeleteHandler = (id) => {
-    dispatch(deletePost(id));
+    if (user === null) {
+      alert("Please login");
+      navigate("/Login");
+    } else {
+      let confirm = window.confirm("Do you really want to delete blog....");
+      if (confirm) {
+        dispatch(deletePost(id));
+      }
+    }
   };
+  // Like blog function
   const LikeHandler = (id) => {
     if (user === null) {
       alert("Please login");
+      navigate("/Login");
     } else {
       dispatch(like(id));
     }
   };
+  // craeting new blog
   const CreateHandler = () => {
     if (tittle.current.value === "" && content.current.value === "") {
       setMsg("All field mandetory!");
@@ -49,18 +67,20 @@ export const Blog = () => {
       setMsg("Created successfully!");
     }
   };
-  console.log(blog1);
+  //  close validation massage
   const CloseHandler = () => {
     setMsg("");
   };
+  // edit handler
   const EditHandler = (id) => {
     if (user === null) {
       alert("Please login ..");
+      navigate("/Login");
     } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setEditClick(true);
       blog1.forEach((element) => {
         if (element.id === id) {
-          console.log(element);
           blog1.splice(element, 1);
           tittle.current.value = element.title;
           content.current.value = element.body;
@@ -70,6 +90,7 @@ export const Blog = () => {
       });
     }
   };
+  // comment handler
   const CommentHandler = (id) => {
     if (user === null) {
       alert("Please Login first..");
@@ -81,10 +102,10 @@ export const Blog = () => {
       dispatch(commentHandler(obj));
     }
   };
+  // comment box handler
   const CommentBoxHandler = (e) => {
     CommentRef.current.value = e.target.value;
   };
-  console.log("blog", blog1);
   return (
     <div className="text-center">
       <center>
@@ -114,7 +135,7 @@ export const Blog = () => {
               ref={content}
             />
           </div>
-          <button className="btn btn-primary" onClick={CreateHandler}>
+          <button className="btn btn-outline-success" onClick={CreateHandler}>
             {editClick ? "Save" : "Create Blog"}
           </button>
           {msg === "" ? null : (
@@ -161,10 +182,6 @@ export const Blog = () => {
                   onClick={() => LikeHandler(val.id)}
                 ></i>
 
-                <i
-                  class="fa fa-comment-o me-4"
-                  onClick={() => CommentHandler(val.id)}
-                ></i>
                 <input
                   type="text"
                   class="input"
@@ -172,6 +189,12 @@ export const Blog = () => {
                   ref={CommentRef}
                   onChange={CommentBoxHandler}
                 />
+                <button
+                  className="btn btn-outline-warning"
+                  onClick={() => CommentHandler(val.id)}
+                >
+                  <i class="fa fa-comment-o"></i>
+                </button>
                 {data.comment != null ? (
                   <div className="comment">
                     {data.comment !== null

@@ -1,17 +1,8 @@
-.App {
-  /* width: 1144px;
-  margin: auto; */
-  /* box-shadow: rgba(240, 0, 0, 0.24) 0px 3px 8px;
-  background-color: rgb(204, 201, 201); */
-}
 @media only screen and (max-width: 1137px) {
-  .App{
-    width: auto;
-  }
-  .blog__card{
+  .blog__card {
     width: 100%;
     margin: auto;
-   padding: auto;
+    padding: auto;
   }
 }
 .logo {
@@ -61,5 +52,8 @@ li {
   margin: 4% 4% 0% 4%;
   overflow: auto;
   height: 20vh;
-  /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
+}
+
+.fa-comment-o {
+  color: black;
 }
